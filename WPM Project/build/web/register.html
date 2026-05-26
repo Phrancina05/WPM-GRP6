@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Register - Livestock System</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
+        .navbar { background: #2c7a2c; padding: 16px 30px; display: flex;
+                  align-items: center; justify-content: space-between;
+                  box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .navbar strong { color: white; font-size: 18px; }
+        .navbar a { color: white; text-decoration: none; margin-left: 20px; font-size: 14px; }
+        .navbar a:hover { text-decoration: underline; }
+        .page { display: flex; justify-content: center; align-items: center;
+                min-height: calc(100vh - 110px); padding: 30px 20px;
+                background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
+        .form-box { background: white; padding: 40px; border-radius: 12px;
+                    width: 400px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+                    border-top: 5px solid #2c7a2c; }
+        h2 { color: #1b5e20; text-align: center; margin-bottom: 6px; font-size: 22px; }
+        .subtitle { text-align: center; font-size: 13px; color: #888; margin-bottom: 24px; }
+        label { font-size: 13px; font-weight: bold; color: #444;
+                display: block; margin-bottom: 4px; margin-top: 14px; }
+        input, select {
+            width: 100%; padding: 11px 14px;
+            border: 1.5px solid #ccc; border-radius: 6px;
+            box-sizing: border-box; font-family: Arial;
+            font-size: 14px; transition: border-color 0.2s;
+            background: #fafafa;
+        }
+        input:focus, select:focus {
+            border-color: #2c7a2c; outline: none; background: white;
+        }
+        /* Error state */
+        input.invalid, select.invalid { border-color: #cc0000; background: #fff5f5; }
+        .error-msg {
+            font-size: 11.5px; color: #cc0000;
+            margin-top: 4px; display: none;
+        }
+        .error-msg.show { display: block; }
+
+        /* Password strength */
+        .strength-bar { display: flex; gap: 4px; margin-top: 6px; }
+        .strength-bar div {
+            height: 4px; flex: 1; border-radius: 2px;
+            background: #ddd; transition: background 0.3s;
+        }
+        .strength-label { font-size: 11px; color: #aaa; margin-top: 4px; }
+
+        .btn { width: 100%; padding: 13px; background: #2c7a2c;
+               color: white; border: none; border-radius: 6px;
+               font-size: 16px; font-weight: bold; cursor: pointer;
+               margin-top: 22px; letter-spacing: 0.3px;
+               transition: background 0.2s; }
+        .btn:hover { background: #1e5c1e; }
+        .divider { display: flex; align-items: center; gap: 10px; margin: 18px 0 6px; }
+        .divider hr { flex: 1; border: none; border-top: 1px solid #e0e0e0; }
+        .divider span { font-size: 12px; color: #aaa; }
+        .links { text-align: center; font-size: 13px; color: #666; line-height: 2; }
+        .links a { color: #2c7a2c; }
+        .links a:hover { text-decoration: underline; }
+        footer { background: #1b5e20; color: rgba(255,255,255,0.6);
+                 text-align: center; padding: 20px; font-size: 13px; }
+        footer a { color: #a5d6a7; text-decoration: none; margin: 0 10px; }
+        footer a:hover { text-decoration: underline; }
+        .footer-links { margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <strong>🐄 Livestock Monitoring System</strong>
+        <span>
+            <a href="index.html">Home</a>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            <a href="contact.html">Contact Us</a>
+        </span>
+    </div>
+
+    <!-- PAGE -->
+    <div class="page">
+        <div class="form-box">
+            <h2>🐄 Create Account</h2>
+            <p class="subtitle">Fill in all fields to register your account</p>
+
+            <form id="regForm" action="RegisterServlet" method="POST" novalidate>
+
+                <!-- Full Name -->
+                <label for="full_name">Full Name <span style="color:red;">*</span></label>
+                <input type="text" id="full_name" name="full_name"
+                       placeholder="Enter your full name"/>
+                <div class="error-msg" id="err_name">Please enter your full name.</div>
+
+                <!-- Email -->
+                <label for="email">Email Address <span style="color:red;">*</span></label>
+                <input type="email" id="email" name="email"
+                       placeholder="Enter your email address"/>
+                <div class="error-msg" id="err_email">Please enter a valid email address.</div>
+
+                <!-- Password -->
+                <label for="password">Password <span style="color:red;">*</span></label>
+                <input type="password" id="password" name="password"
+                       placeholder="Minimum 6 characters"
+                       oninput="checkStrength(this.value)"/>
+                <div class="strength-bar">
+                    <div id="s1"></div>
+                    <div id="s2"></div>
+                    <div id="s3"></div>
+                    <div id="s4"></div>
+                </div>
+                <div class="strength-label" id="strength-label">Enter a password</div>
+                <div class="error-msg" id="err_password">
+                    Password must be at least 6 characters.
+                </div>
+
+                <!-- Confirm Password -->
+                <label for="confirm_password">
+                    Confirm Password <span style="color:red;">*</span>
+                </label>
+                <input type="password" id="confirm_password" name="confirm_password"
+                       placeholder="Repeat your password"/>
+                <div class="error-msg" id="err_confirm">Passwords do not match.</div>
+
+                <!-- Role -->
+                <label for="role">Register As <span style="color:red;">*</span></label>
+                <select id="role" name="role">
+                    <option value="" disabled selected>Select your role</option>
+                    <option value="farmer">Farm Worker</option>
+                    <option value="admin">Administrator</option>
+                </select>
+                <div class="error-msg" id="err_role">Please select a role.</div>
+
+                <input type="submit" class="btn" value="Create Account"/>
+            </form>
+
+            <div class="divider"><hr/><span>or</span><hr/></div>
+            <div class="links">
+                <p>Already have an account? <a href="login.html">Login here</a></p>
+                <p><a href="index.html">← Back to Home</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-links">
+           
+        </div>
+        <p>© 2026 Livestock Monitoring System | Developed by Nghipunya J . Kamwanga R . Shikongo E . Ndjambula P . Johnnes A</p>
+    </footer>
+
+    <script>
+        // Password strength meter
+        function checkStrength(pw) {
+            var bars   = [document.getElementById('s1'), document.getElementById('s2'),
+                          document.getElementById('s3'), document.getElementById('s4')];
+            var label  = document.getElementById('strength-label');
+            var score  = 0;
+            if (pw.length >= 6)                        score++;
+            if (pw.length >= 10)                       score++;
+            if (/[A-Z]/.test(pw) && /[0-9]/.test(pw)) score++;
+            if (/[^A-Za-z0-9]/.test(pw))              score++;
+
+            var colours = ['#cc0000', '#f0a500', '#4caf50', '#2c7a2c'];
+            var labels  = ['Weak', 'Fair', 'Good', 'Strong'];
+
+            bars.forEach(function(b, i) {
+                b.style.background = i < score ? colours[score - 1] : '#ddd';
+            });
+
+            label.textContent = pw.length === 0 ? 'Enter a password' : labels[score - 1] || 'Weak';
+            label.style.color = pw.length === 0 ? '#aaa' : colours[score - 1] || '#cc0000';
+        }
+
+        // Show error helper
+        function showError(inputId, msgId) {
+            document.getElementById(inputId).classList.add('invalid');
+            document.getElementById(msgId).classList.add('show');
+        }
+
+        // Clear error helper
+        function clearError(inputId, msgId) {
+            document.getElementById(inputId).classList.remove('invalid');
+            document.getElementById(msgId).classList.remove('show');
+        }
+
+        // Live validation — clear errors as user types
+        document.getElementById('full_name').addEventListener('input', function() {
+            if (this.value.trim().length >= 2) clearError('full_name', 'err_name');
+        });
+        document.getElementById('email').addEventListener('input', function() {
+            if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value)) clearError('email', 'err_email');
+        });
+        document.getElementById('password').addEventListener('input', function() {
+            if (this.value.length >= 6) clearError('password', 'err_password');
+        });
+        document.getElementById('confirm_password').addEventListener('input', function() {
+            if (this.value === document.getElementById('password').value) {
+                clearError('confirm_password', 'err_confirm');
+            }
+        });
+        document.getElementById('role').addEventListener('change', function() {
+            if (this.value) clearError('role', 'err_role');
+        });
+
+        // Form submit validation
+        document.getElementById('regForm').addEventListener('submit', function(e) {
+            var valid = true;
+
+            // Full name
+            var name = document.getElementById('full_name').value.trim();
+            if (name.length < 2) {
+                showError('full_name', 'err_name');
+                valid = false;
+            } else {
+                clearError('full_name', 'err_name');
+            }
+
+            // Email
+            var email = document.getElementById('email').value.trim();
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError('email', 'err_email');
+                valid = false;
+            } else {
+                clearError('email', 'err_email');
+            }
+
+            // Password
+            var pw = document.getElementById('password').value;
+            if (pw.length < 6) {
+                showError('password', 'err_password');
+                valid = false;
+            } else {
+                clearError('password', 'err_password');
+            }
+
+            // Confirm password
+            var cpw = document.getElementById('confirm_password').value;
+            if (cpw !== pw) {
+                showError('confirm_password', 'err_confirm');
+                valid = false;
+            } else {
+                clearError('confirm_password', 'err_confirm');
+            }
+
+            // Role
+            var role = document.getElementById('role').value;
+            if (!role) {
+                showError('role', 'err_role');
+                valid = false;
+            } else {
+                clearError('role', 'err_role');
+            }
+
+            if (!valid) e.preventDefault();
+        });
+    </script>
+
+</body>
+</html>

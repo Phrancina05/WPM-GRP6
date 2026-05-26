@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Livestock Monitoring System</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; }
+
+        /* NAVBAR */
+        .navbar {
+            background: #2c7a2c;
+            padding: 16px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .navbar .brand { color: white; font-size: 18px; font-weight: bold; }
+        .navbar a { color: white; text-decoration: none; margin-left: 20px; font-size: 14px; }
+        .navbar a:hover { text-decoration: underline; }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            text-align: center;
+            padding: 160px 20px;
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+                        url('https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1400&q=80')
+                        center/cover no-repeat;
+            border-bottom: 4px solid #2c7a2c;
+        }
+        .hero h1 {
+            font-size: 44px;
+            color: white;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        .hero p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.85);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ABOUT SECTION */
+        .about-section {
+            background: white;
+            padding: 70px 60px;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            border-bottom: 1px solid #e0e0e0;
+            flex-wrap: wrap;
+        }
+        .about-img {
+            flex: 1;
+            min-width: 280px;
+            max-width: 460px;
+        }
+        .about-img img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            display: block;
+        }
+        .about-text { flex: 1; min-width: 280px; }
+        .about-text h2 {
+            font-size: 26px;
+            color: #1b5e20;
+            margin-bottom: 14px;
+        }
+        .about-text p {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.85;
+            margin-bottom: 24px;
+        }
+
+        /* FEATURES */
+        .features-section {
+            padding: 70px 30px;
+            text-align: center;
+            background: #f4f4f4;
+        }
+        .features-section h2 {
+            font-size: 26px;
+            color: #1b5e20;
+            margin-bottom: 8px;
+        }
+        .features-section .sub {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: white;
+            padding: 28px 20px;
+            border-radius: 10px;
+            width: 210px;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            border-top: 4px solid #2c7a2c;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        .card .icon { font-size: 36px; margin-bottom: 12px; }
+        .card h3 { color: #2c7a2c; font-size: 15px; margin-bottom: 8px; }
+        .card p { color: #666; font-size: 13px; line-height: 1.6; }
+
+        /* GALLERY STRIP */
+        .gallery {
+            display: flex;
+            gap: 0;
+            height: 240px;
+            overflow: hidden;
+        }
+        .gallery img {
+            flex: 1;
+            width: 20%;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.85);
+            transition: filter 0.3s, transform 0.3s;
+        }
+        .gallery img:hover {
+            filter: brightness(1);
+            transform: scale(1.02);
+            z-index: 1;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(135deg, #2c7a2c, #1b5e20);
+            text-align: center;
+            padding: 70px 20px;
+        }
+        .cta-section h2 { color: white; font-size: 28px; margin-bottom: 14px; }
+        .cta-section p {
+            color: rgba(255,255,255,0.75);
+            font-size: 15px;
+            margin-bottom: 30px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .btn-white {
+            background: white;
+            color: #2c7a2c;
+            padding: 14px 36px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 6px;
+            transition: background 0.2s;
+        }
+        .btn-white:hover { background: #e8f5e9; }
+        .btn-outline {
+            background: transparent;
+            color: white;
+            padding: 13px 34px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 6px;
+            border: 2px solid white;
+            transition: background 0.2s;
+        }
+        .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+        /* FOOTER */
+        footer {
+            background: #1b5e20;
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 13px;
+        }
+        footer a {
+            color: #a5d6a7;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer a:hover { text-decoration: underline; }
+        footer .footer-links { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <span class="brand">🐄 Livestock Monitoring System</span>
+        <span>
+            <a href="index.html">Home</a>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            <a href="contact.html">Contact Us</a>
+        </span>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+        <h1>Welcome to Eiseb Livestock Monitoring System</h1>
+        <p>A smart and simple way to manage and monitor your livestock.</p>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="about-section">
+        <div class="about-img">
+            <img
+                src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=800&q=80"
+                alt="Livestock on a farm"
+            />
+        </div>
+        <div class="about-text">
+            <h2>About the System</h2>
+            <p>
+                A web-based platform designed to help farm workers and administrators
+                manage livestock records digitally. It allows users to register animals,
+                monitor their health, track weight and growth, and manage grazing areas
+                — all stored securely in one central system and accessible at any time.
+            </p>
+        </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="features-section">
+        <h2>What the System Offers</h2>
+        <p class="sub">Everything you need to manage your livestock in one place</p>
+        <div class="features">
+            <div class="card">
+                <div class="icon">📍</div>
+                <h3>Track Location</h3>
+                <p>Know where your animals are grazing at all times</p>
+            </div>
+            <div class="card">
+                <div class="icon">🐄</div>
+                <h3>Manage Animals</h3>
+                <p>Add, edit and delete animal records easily</p>
+            </div>
+            <div class="card">
+                <div class="icon">💊</div>
+                <h3>Health Status</h3>
+                <p>Monitor and update the health of each animal</p>
+            </div>
+            <div class="card">
+                <div class="icon">📊</div>
+                <h3>Reports</h3>
+                <p>View all your livestock data and history</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- IMAGE GALLERY STRIP -->
+    <!-- IMAGE GALLERY STRIP -->
+<div class="gallery">
+    <img
+        src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80"
+        alt="Cattle grazing"
+    />
+    <img
+    src="https://images.pexels.com/photos/635499/pexels-photo-635499.jpeg?w=600"
+    alt="Donkey on a farm"
+/>
+    <img
+        src="https://images.unsplash.com/photo-1524024973431-2ad916746881?w=600&q=80"
+        alt="Goats on a farm"
+    />
+    <img
+    src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=600&q=80"
+    alt="Horse on a farm"
+/>
+    <img
+        src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=600&q=80"
+        alt="Chickens on a farm"
+    />
+</div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <h2>Ready to Go Digital?</h2>
+        <p>
+            Register your account and start managing your livestock
+            the smart and professional way.
+        </p>
+        <a href="register.html" class="btn-white">Register Now</a>
+        <a href="login.html" class="btn-outline">Login</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        
+        <p>© 2026 Livestock Monitoring System | Developed by Nghipunya J . Kamwanga R . Shikongo E . Ndjambula P . Johnnes A</p>
+    </footer>
+
+</body>
+</html>

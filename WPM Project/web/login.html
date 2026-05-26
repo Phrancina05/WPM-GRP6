@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Livestock System</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
+
+        /* NAVBAR */
+        .navbar {
+            background: #2c7a2c;
+            padding: 16px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .navbar strong { color: white; font-size: 18px; }
+        .navbar a { color: white; text-decoration: none; margin-left: 20px; font-size: 14px; }
+        .navbar a:hover { text-decoration: underline; }
+
+        /* PAGE */
+        .page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 118px);
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+        }
+
+        /* FORM BOX */
+        .form-box {
+            background: white;
+            padding: 44px 40px;
+            border-radius: 12px;
+            width: 380px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            border-top: 5px solid #2c7a2c;
+        }
+        h2 {
+            color: #1b5e20;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 28px;
+        }
+
+        /* LABELS */
+        label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #444;
+            display: block;
+            margin-bottom: 4px;
+            margin-top: 14px;
+        }
+
+        /* INPUTS */
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: Arial;
+            transition: border-color 0.2s;
+            background: #fafafa;
+        }
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #2c7a2c;
+            outline: none;
+            background: white;
+        }
+
+        /* BUTTON */
+        .btn {
+            width: 100%;
+            padding: 13px;
+            background: #2c7a2c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 24px;
+            letter-spacing: 0.3px;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #1e5c1e; }
+
+        /* DIVIDER */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 22px 0 6px;
+        }
+        .divider hr {
+            flex: 1;
+            border: none;
+            border-top: 1px solid #e0e0e0;
+        }
+        .divider span {
+            font-size: 12px;
+            color: #aaa;
+            white-space: nowrap;
+        }
+
+        /* LINKS */
+        a { color: #2c7a2c; }
+        a:hover { text-decoration: underline; }
+        .links {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 13px;
+            color: #666;
+            line-height: 2;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #1b5e20;
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+        }
+        footer a {
+            color: #a5d6a7;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer a:hover { text-decoration: underline; }
+        .footer-links { margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <strong>🐄 Livestock Monitoring System</strong>
+        <span>
+            <a href="index.html">Home</a>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            <a href="contact.html">Contact Us</a>
+        </span>
+    </div>
+
+    <!-- PAGE -->
+    <div class="page">
+        <div class="form-box">
+            <h2>🐄 Farmer Login</h2>
+            <p class="subtitle">Sign in to access your livestock dashboard</p>
+
+            <form action="LoginServlet" method="POST">
+                <label>Email:</label>
+                <input type="email" name="email" placeholder="Enter your email" required/>
+
+                <label>Password:</label>
+                <input type="password" name="password" placeholder="Enter your password" required/>
+
+                <br/>
+                <input type="submit" class="btn" value="Login"/>
+            </form>
+
+            <div class="divider">
+                <hr/><span>or</span><hr/>
+            </div>
+
+            <div class="links">
+                <p>Don't have an account? <a href="register.html">Register here</a></p>
+                <p><a href="index.html">← Back to Home</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-links">
+           
+        </div>
+        <p>© 2026 Livestock Monitoring System | Developed by Nghipunya J . Kamwanga R . Shikongo E . Ndjambula P . Johnnes A</p>
+    </footer>
+
+</body>
+</html>
